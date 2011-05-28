@@ -1,3 +1,6 @@
 [submodule ".vim"]
 	path = .vim
 	url = /Users/philippemongeau/.vim
+[submodule "vim"]
+	path = vim
+	url = /Users/philippemongeau/.vim
