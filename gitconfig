@@ -1,0 +1,42 @@
+[user]
+	name = Philippe Mongeau
+	email = ph.mongeau@gmail.com
+[gui]
+	recentrepo = /Users/philippemongeau/Documents/iPhone/cubic morphus/Xcode/cubic morphus
+[color]
+	status = auto
+	diff = auto
+    branch = auto
+	ui = auto
+[alias]
+	unstage = reset HEAD --
+	last = log -1 HEAD
+    st = status
+    ci = commit
+    br = branch
+    co = checkout
+    df = diff
+	l = log --pretty=format:'%h - %cN - %s '
+    lg = log -p
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate -- pretty=oneline --abbrev-commit --all
+[branch]
+	autosetupmerge = true
+[core]
+	excludesfile = /Users/philippemongeau/.global_ignore
+	editor = nano
+	autocrlf = input
+[github]
+	user = phmongeau
+	token = 253b926f6f808734dcb861b2144a8b21
+;[diff]
+	;external = filemerge
+[merge]
+	tool = mvimdiff3
+[mergetool "filemerge"]
+	cmd = opendiff
+	trustExitCode = false
+[mergetool "mvimdiff3"]
+	cmd = mvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+[commit]
+	template = /Users/philippemongeau/.gitmessage.txt
