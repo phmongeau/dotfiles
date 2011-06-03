@@ -70,6 +70,9 @@ alias lg='ls -GgaF | grep $*'
 
 alias vless='/usr/share/vim/vim72/macros/less.sh'
 
+alias mvim='mvim --remote-silent'
+alias gvim='mvim --remote-silent'
+
 #alias t='todo.sh'
 function t() { 
   if [ $# -eq 0 ]; then
