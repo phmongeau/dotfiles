@@ -1,11 +1,54 @@
-#!/bin/bash
-# Bash config files by Philippe Mongeau
+#!/bin/zsh
 
-# A nice intro :)
-#fortune -s |cowsay
-#fortune humorists |cowsay -f small
-#date +%d/%m/%Y | cowsay -f small
-echo "Il est présentement: $(date +%H:%M)"|cowsay -f small
+# ZSH config files by Philippe Mongeau
+
+#-----------------------------------------------------------------------------
+#   Zsh opts
+#-----------------------------------------------------------------------------
+autoload -U compinit
+compinit
+
+autoload -U promptinit
+promptinit
+
+setopt autolist
+setopt nolistbeep
+setopt menucomplete
+setopt completealiases
+
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:description' format '%B%d%b'
+zstyle ':completion:*:message' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+
+#-----------------------------------------------------------------------------
+#   Git prompt
+#-----------------------------------------------------------------------------
+# Init colors.
+autoload -U colors
+colors
+
+# Allow functions in the prompt
+setopt PROMPT_SUBST
+
+# Autoload zsh functions.
+fpath=(~/.zsh/functions $fpath)
+autoload -U ~/.zsh/functions/*(:t)
+
+# Enable auto-exec of functions
+typeset -ga preexec_functions
+typeset -ga precmd_functions
+typeset -ga chpwd_functions
+
+# Append git functions for the prompt
+preexec_functions+='preexec_update_git_vars'
+precmd_functions+='precmd_update_git_vars'
+chpwd_functions+='chpwd_update_git_vars'
+
+# Set the prompt
+PROMPT='%{${fg[green]}%}%2~%{${fg[default]}%} '
+RPROMPT=$'$(prompt_git_info)'
+
 #-----------------------------------------------------------------------------
 #   Env Vars
 #-----------------------------------------------------------------------------
@@ -19,10 +62,9 @@ export FLEX_HOME="/usr/local/flex_sdk_4.1"
 export TESSDATA_PREFIX="/usr/local/Cellar/tesseract/2.04/share/"
 
 # show git branch name when in a git repo
-parse_git_branch() {
+function parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
-PS1="\w\$(parse_git_branch) $ "
 
 # -----------------------------------------------------------------------------
 #	PATH
@@ -56,6 +98,9 @@ PATH="/Users/philippemongeau/.cabal/bin/:$PATH"
 # add /usr/local/bin
 PATH="/usr/local/bin:$PATH"
 
+#Python
+PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH"
+
 # ~/bin for user specific commands:
 test -d "$HOME/bin" &&
 PATH="$HOME/bin:$PATH"
@@ -66,9 +111,9 @@ export PATH
 #	ALIASES
 # -----------------------------------------------------------------------------
 
-alias l='ls -GgF'
-alias la='ls -GgaF'
-alias lg='ls -GgaF | grep $*'
+alias l='ls -GghF'
+alias la='ls -GgahF'
+alias lg='ls -GgahF | grep $*'
 
 alias vless='/usr/share/vim/vim72/macros/less.sh'
 
@@ -84,11 +129,12 @@ function t() {
   fi
 }
 
+
 #-----------------------------------------------------------------------------
 #   Notes
 #-----------------------------------------------------------------------------
 
-n()
+function n()
 {
 	if [[ $* == *.* ]] ; then
 		#$f=$(echo $* | sed -e 's/_/ /g' 2>/dev/null)
@@ -98,16 +144,19 @@ n()
 	fi
 }
 
-ncat()
+function ncat()
 {
     cat ~/Dropbox/Notes/"$*"*
 	echo "\n"
 }
 
-nls()
+function nls()
 {
     ls -c ~/Dropbox/Notes/ | grep -i "$*"
 }
+
+#--Completion__
+#zle -C 
 
 #----------------
 #   Par
@@ -121,16 +170,15 @@ PARINIT=rTbgqR\ B=.,\?_A_a\ Q=_s\>\|
 #-----------------------------------------------------------------------------
 MUSICROOT=~/Music
 function fplay {
-if [ $1 = '-v' ]; then
-shift 1
-find -LE $MUSICROOT -type f -iname "*$**" -iregex '.*\.(3g[2|p]|a(ac|c3|dts|if[c|f]?|mr|nd|u)|caf|m4[a|r]|mp([1-4|a]|eg[0,9]?)|sd2|wav)' -print -exec afplay "{}" \; &
-elif [ $1 = '-g' ]; then
-shift 1
-find -E $MUSICROOT -type f -iname "*$**" -iregex '.*\.(3g[2|p]|a(ac|c3|dts|if[c|f]?|mr|nd|u)|caf|m4[a|r]|mp([1-4|a]|eg[0,9]?)|sd2|wav)' -exec open -a QuickTime\ Player "{}" \; -exec osascript -e 'tell application "QuickTime Player" to play document 1' \; &
-
-else
-find -E $MUSICROOT -type f -iname "*$**" -iregex '.*\.(3g[2|p]|a(ac|c3|dts|if[c|f]?|mr|nd|u)|caf|m4[a|r]|mp([1-4|a]|eg[0,9]?)|sd2|wav)' -exec afplay "{}" \; &
-fi
+	if [ $1 = '-v' ]; then
+		shift 1
+		find -LE $MUSICROOT -type f -iname "*$**" -iregex '.*\.(3g[2|p]|a(ac|c3|dts|if[c|f]?|mr|nd|u)|caf|m4[a|r]|mp([1-4|a]|eg[0,9]?)|sd2|wav)' -print -exec afplay "{}" \; &
+	elif [ $1 = '-g' ]; then
+		shift 1
+		find -E $MUSICROOT -type f -iname "*$**" -iregex '.*\.(3g[2|p]|a(ac|c3|dts|if[c|f]?|mr|nd|u)|caf|m4[a|r]|mp([1-4|a]|eg[0,9]?)|sd2|wav)' -exec open -a QuickTime\ Player "{}" \; -exec osascript -e 'tell application "QuickTime Player" to play document 1' \; &
+	else
+		find -E $MUSICROOT -type f -iname "*$**" -iregex '.*\.(3g[2|p]|a(ac|c3|dts|if[c|f]?|mr|nd|u)|caf|m4[a|r]|mp([1-4|a]|eg[0,9]?)|sd2|wav)' -exec afplay "{}" \; &
+	fi
 }
 #-----------------------------------------------------------------------------
 function vlc()
@@ -144,14 +192,16 @@ function wiki()
 }
 #-----------------------------------------------------------------------------
 # mkdir, cd into it
-mkcd () {
-mkdir -p "$*"
-cd "$*"
+function mkcd () {
+	mkdir -p "$*"
+	cd "$*"
 }
 #-----------------------------------------------------------------------------
 #   Source
 #-----------------------------------------------------------------------------
-. ~/.bash_completion
- z
+
 . `brew --prefix`/etc/profile.d/z.sh
+function precmd () {
+  z --add "$(pwd -P)"
+}
 
