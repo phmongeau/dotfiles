@@ -11,15 +11,15 @@
 [alias]
 	unstage = reset HEAD --
 	last = log -1 HEAD
-    st = status
-    ci = commit
-    br = branch
-    co = checkout
-    df = diff
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
+	df = diff
 	l = log --pretty=format:'%h - %cN - %s '
-    lg = log -p
-    lol = log --graph --decorate --pretty=oneline --abbrev-commit
-    lola = log --graph --decorate -- pretty=oneline --abbrev-commit --all
+	lp = log -p
+	lol = log --graph --decorate --pretty=oneline --abbrev-commit
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 [branch]
 	autosetupmerge = true
 [core]
