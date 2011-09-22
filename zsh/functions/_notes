@@ -1,9 +1,0 @@
-#comdef n ncat
-
-typeset -A opt_args
-local context state line
-local notesdir
-notesdir=${Home}/Dropbox/Notes
-
-_arguments -s -S \
-	"-f+[specify the file]:file:_files -W $notesdir -g '*(:r)' && return 0"
