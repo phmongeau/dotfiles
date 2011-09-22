@@ -10,7 +10,7 @@ if [ -n "$__CURRENT_GIT_BRANCH" ]; then
 			s+="↕"
 			;;
 		behind)
-			s+= "↓"
+			s+="↓"
 			;;
 	esac
 

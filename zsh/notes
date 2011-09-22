@@ -1,0 +1,23 @@
+#-----------------------------------------------------------------------------
+#   Notes
+#-----------------------------------------------------------------------------
+
+function n()
+{
+	if [[ $* == *.* ]] ; then
+		EDITOR ~/Dropbox/Notes/"$(echo $* | sed -e 's/_/ /g')"
+	else
+		$EDITOR ~/Dropbox/Notes/"$*".md
+	fi
+}
+
+function ncat()
+{
+    cat ~/Dropbox/Notes/"$*"*
+	echo "\n"
+}
+
+function nls()
+{
+    ls -c ~/Dropbox/Notes/ | grep -i "$*"
+}
