@@ -1,5 +1,3 @@
-subject line
+subject line [fixes #]
 
-what happened
-
-[ticket: X]
++ details
