@@ -24,7 +24,7 @@
 	autosetupmerge = true
 [core]
 	excludesfile = /Users/philippemongeau/.global_ignore
-	editor = tvim
+	editor = vim
 	autocrlf = input
 [github]
 	user = phmongeau

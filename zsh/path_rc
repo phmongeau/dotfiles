@@ -3,16 +3,13 @@
 # -----------------------------------------------------------------------------
 
 #flex
-PATH=$PATH:/usr/local/flex_sdk_4.1/bin
+PATH="$PATH:/usr/local/flex_sdk_4.1/bin"
 #PATH=$PATH:/usr/local/bin:/usr/local/flex_sdk_3.4/bin
 
 #infrom lib
-PATH=$PATH:/usr/local/inform
+PATH="$PATH:/usr/local/inform"
 
-PATH=$PATH:/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin
-
-#wireshark
-PATH="$HOME/bin/wireshark:$PATH"
+PATH="$PATH:/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin"
 
 # add sbin to the path
 PATH="/usr/local/sbin:$PATH"
