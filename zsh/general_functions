@@ -36,3 +36,17 @@ function mkcd () {
 	mkdir -p "$*"
 	cd "$*"
 }
+#play iTunes
+function play () {
+	echo 'tell application "iTunes" to play' | osascript
+}
+#pause iTunes
+function pause () {
+	echo 'tell application "iTunes" to pause' | osascript
+}
+
+#display in large type
+function large () {
+	read $* TXT
+	echo 'tell application "Quicksilver" to show large type "'$TXT'"' | osascript
+}
