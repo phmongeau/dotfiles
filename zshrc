@@ -21,10 +21,14 @@ zstyle ':completion:*:description' format '%B%d%b'
 zstyle ':completion:*:message' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
 
+# vi mode
+set -o vi
+
 # --- edit line in editor ---
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '\C-x\C-e' edit-command-line
+bindkey -M vicmd v edit-command-line
 
 
 # Par
@@ -62,10 +66,14 @@ function precmd () {
 }
 
 #-----------------------------------------------------------------------------
-#   Source
+#   Plugins
 #-----------------------------------------------------------------------------
 
 # Syntax hiligth
 . ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # HISTORY SEARCH
 . ~/.zsh/plugins/zsh-history-substring-search.zsh
+
+#-----------------------------------------------------------------------------
+#   Other
+#-----------------------------------------------------------------------------

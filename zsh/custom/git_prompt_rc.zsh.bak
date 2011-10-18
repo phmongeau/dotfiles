@@ -1,0 +1,27 @@
+#-----------------------------------------------------------------------------
+#   Git prompt
+#-----------------------------------------------------------------------------
+# Init colors.
+autoload -U colors
+colors
+
+# Allow functions in the prompt
+setopt PROMPT_SUBST
+
+# Autoload zsh functions.
+fpath=(~/.zsh/functions $fpath)
+autoload -U ~/.zsh/functions/*(:t)
+
+# Enable auto-exec of functions
+typeset -ga preexec_functions
+typeset -ga precmd_functions
+typeset -ga chpwd_functions
+
+# Append git functions for the prompt
+preexec_functions+='preexec_update_git_vars'
+precmd_functions+='precmd_update_git_vars'
+chpwd_functions+='chpwd_update_git_vars'
+
+# Set the prompt
+PROMPT='%{${fg[green]}%}%2~%{${fg[default]}%} '
+RPROMPT=$'$(prompt_git_info)'
