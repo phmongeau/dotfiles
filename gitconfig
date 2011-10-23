@@ -39,4 +39,4 @@
 [mergetool "mvimdiff3"]
 	cmd = mvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 [commit]
-	template = /Users/philippemongeau/.gitmessage.txt
+	; template = /Users/philippemongeau/.gitmessage.txt
