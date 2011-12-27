@@ -50,3 +50,32 @@ function large () {
 	read $* TXT
 	echo 'tell application "Quicksilver" to show large type "'$TXT'"' | osascript
 }
+
+# search for running processes:
+# see: http://onethingwell.org/post/14669173541/any
+function any() {
+	emulate -L zsh
+	unsetopt KSH_ARRAYS
+	if [[ -z "$1" ]] ; then
+		echo "any - grep for process(es) by keyword" >&2
+		echo "Usage: any " >&2 ; return 1
+	else
+		ps xauwww | grep -i --color=auto "[${1[1]}]${1[2,-1]}"
+	fi
+}
+
+fp () { #find and list processes matching a string
+	ps Ao pid,comm | awk '{match($0,/[^\/]+$/); print substr($0,RSTART,RLENGTH)": "$1}'|grep -i $1|grep -v grep
+}
+
+fk () { #build a menu of processes to kill
+	IFS=$'\n'
+	PS3='Kill which process? (1 to cancel): '
+	select OPT in "Cancel" $(fp $1); do
+		if [ $OPT != "Cancel" ]; then
+			kill $(echo $OPT|awk '{print $NF}')
+		fi
+		break
+	done
+	unset IFS
+}

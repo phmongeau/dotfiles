@@ -11,7 +11,7 @@
 [alias]
 	unstage = reset HEAD --
 	last = log -1 HEAD
-	st = status
+	st = status -sb
 	ci = commit
 	br = branch
 	co = checkout
@@ -26,9 +26,6 @@
 	excludesfile = /Users/philippemongeau/.global_ignore
 	editor = vim
 	autocrlf = input
-[github]
-	user = phmongeau
-	token = 253b926f6f808734dcb861b2144a8b21
 ;[diff]
 	;external = filemerge
 [merge]
@@ -40,3 +37,7 @@
 	cmd = mvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 [commit]
 	; template = /Users/philippemongeau/.gitmessage.txt
+[init]
+	templatedir = ~/.git_template
+[push]
+	default = tracking
