@@ -13,12 +13,9 @@ alias gvim='mvim --remote-silent'
 
 alias rmpyc='rm *.pyc'
 
-# todo.txt
-function t() { 
-  if [ $# -eq 0 ]; then
-    todo.sh -d /path/to/your/todo.cfg ls
-  else
-    todo.sh -d /path/to/your/todo.cfg $* 
-  fi
-}
+alias badd='beet_strip_path.sh | mpc add'
+alias madd='mpc add; mpc play'
+alias msearch='mpc search any $*'
+alias mpause='mpc idle; mpc pause'
 
+alias workon='source env/bin/activate'
