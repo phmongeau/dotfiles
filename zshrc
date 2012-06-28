@@ -1,79 +1,26 @@
-#!/bin/zsh
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
 
-# ZSH config files by Philippe Mongeau
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+export ZSH_THEME="phmongeau"
 
-#-----------------------------------------------------------------------------
-#   Zsh opts
-#-----------------------------------------------------------------------------
-autoload -U compinit
-compinit
+plugins=(osx git python brew pip history-substring-search)
 
-autoload -U promptinit
-promptinit
-
-setopt autolist
-setopt nolistbeep
-setopt menucomplete
-setopt completealiases
-
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*:description' format '%B%d%b'
-zstyle ':completion:*:message' format '%d'
-zstyle ':completion:*:warnings' format 'No matches for: %d'
-
-# vi mode
-set -o vi
-
-# --- edit line in editor ---
-autoload -U edit-command-line
-zle -N edit-command-line
-bindkey '\C-x\C-e' edit-command-line
-bindkey -M vicmd v edit-command-line
+source $ZSH/oh-my-zsh.sh
 
 
-# Par
-PARINIT=rTbgqR\ B=.,\?_A_a\ Q=_s\>\|
+#-----------------------------------
+fpath=(~/.zsh/zsh-completions $fpath)
+fpath=(~/.zsh/custom/completions $fpath)
 
-#-----------------------------------------------------------------------------
-#   Source
-#-----------------------------------------------------------------------------
+source ~/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
-# GIT PROMPT
-. ~/.zsh/git_prompt_rc
+autoload zmv
 
-# ENV VARS
-. ~/.zsh/env_vars_rc
-
-# PATH
-. ~/.zsh/path_rc
-
-# ALIASES
-. ~/.zsh/alias_rc
-
-# NOTES
-. ~/.zsh/notes
-
-# FUNCTIONS
-. ~/.zsh/general_functions
-
-# COMPLETIONS
-. ~/.zsh/completions
-
-# Z
 . `brew --prefix`/etc/profile.d/z.sh
 function precmd () {
   z --add "$(pwd -P)"
 }
-
-#-----------------------------------------------------------------------------
-#   Plugins
-#-----------------------------------------------------------------------------
-
-# Syntax hiligth
-. ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# HISTORY SEARCH
-. ~/.zsh/plugins/zsh-history-substring-search.zsh
-
-#-----------------------------------------------------------------------------
-#   Other
-#-----------------------------------------------------------------------------
