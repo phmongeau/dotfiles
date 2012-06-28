@@ -1,13 +1,12 @@
-# -----------------------------------------------------------------------------
-#	PATH
-# -----------------------------------------------------------------------------
-
 #flex
 PATH="$PATH:/usr/local/flex_sdk_4.1/bin"
 #PATH=$PATH:/usr/local/bin:/usr/local/flex_sdk_3.4/bin
 
 #infrom lib
 PATH="$PATH:/usr/local/inform"
+
+#PostgreSQL
+PATH="/Library/PostgreSQL/8.3/bin:$PATH"
 
 PATH="$PATH:/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin"
 
@@ -19,7 +18,7 @@ PATH="/usr/local/sbin:$PATH"
 PATH="/usr/lib/haxe/lib:$PATH"
 
 #Haskell Bins
-PATH="/Users/philippemongeau/.cabal/bin/:$PATH"
+PATH="/Users/philippemongeau/.cabal/bin:$PATH"
 
 # add /usr/local/bin
 PATH="/usr/local/bin:$PATH"
