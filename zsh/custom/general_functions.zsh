@@ -1,3 +1,11 @@
+# todo.txt
+function t() { 
+  if [ $# -eq 0 ]; then
+    todo.sh -d /path/to/your/todo.cfg ls
+  else
+    todo.sh -d /path/to/your/todo.cfg $* 
+  fi
+}
 # fplay (Music)
 #-----------------------------------------------------------------------------
 MUSICROOT=~/Music
@@ -36,6 +44,13 @@ function mkcd () {
 	mkdir -p "$*"
 	cd "$*"
 }
+
+function goto() { [ -d "$1" ] && cd "$1" || cd "$(dirname "$1")"; }
+
+function cpf() { cp "$@" && goto "$_"; }
+function mvf() { mv "$@" && goto "$_"; }
+
+
 #play iTunes
 function play () {
 	echo 'tell application "iTunes" to play' | osascript
@@ -47,8 +62,8 @@ function pause () {
 
 #display in large type
 function large () {
-	read $* TXT
-	echo 'tell application "Quicksilver" to show large type "'$TXT'"' | osascript
+	# read $* TXT
+	echo 'tell application "Quicksilver" to show large type "'$*'"' | osascript
 }
 
 # search for running processes:
@@ -60,7 +75,7 @@ function any() {
 		echo "any - grep for process(es) by keyword" >&2
 		echo "Usage: any " >&2 ; return 1
 	else
-		ps xauwww | grep -i --color=auto "[${1[1]}]${1[2,-1]}"
+		ps xauwww | grep -i --color=auto "[${1[1]}]${1[2,-1]}" | awk '{print $2,"-",$11}'
 	fi
 }
 
@@ -78,4 +93,20 @@ fk () { #build a menu of processes to kill
 		break
 	done
 	unset IFS
+}
+
+# Quick Look
+ql () {
+	qlmanage -p $*
+}
+
+# Paste to hastebin
+haste() {
+	curl -sd "$(cat $1)" http://hastebin.com/documents |
+	sed -e 's/{"key":"/http:\/\/hastebin.com\//' -e "s/\"}/\.$(echo $1 |
+	sed -e 's/.*\.//')\n/";
+}
+
+mdel() {
+	python -c "print '\n'.join([str(i) for i in range($1, $2)])" | mpc del
 }

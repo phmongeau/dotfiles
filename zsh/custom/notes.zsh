@@ -5,7 +5,7 @@
 function n()
 {
 	if [[ $* == *.* ]] ; then
-		EDITOR ~/Dropbox/Notes/"$(echo $* | sed -e 's/_/ /g')"
+		$EDITOR ~/Dropbox/Notes/"$(echo $* | sed -e 's/_/ /g')"
 	else
 		$EDITOR ~/Dropbox/Notes/"$*".md
 	fi
