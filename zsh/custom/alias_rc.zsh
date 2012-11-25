@@ -19,3 +19,5 @@ alias msearch='mpc search any $*'
 alias mpause='mpc idle; mpc pause'
 
 alias workon='source env/bin/activate'
+
+alias ldd='otool -L'

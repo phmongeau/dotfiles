@@ -1,0 +1,53 @@
+# This is the default .slate file.
+# If no ~/.slate file exists this is the file that will be used.
+
+config defaultToCurrentScreen true
+config nudgePercentOf screenSize
+config resizePercentOf screenSize
+
+# Resize Bindings
+# bind right:alt       resize +10% +0
+# bind left:alt        resize -10% +0
+# bind up:alt          resize +0   -10%
+# bind down:alt        resize +0   +10%
+bind right:ctrl;alt  resize -10% +0 bottom-right
+bind left:ctrl;alt   resize +10% +0 bottom-right
+bind up:ctrl;alt     resize +0   +10% bottom-right
+bind down:ctrl;alt   resize +0   -10% bottom-right
+
+# Push Bindings
+bind pad6:ctrl;alt;cmd chain push right bar-resize:screenSizeX/2 | push right bar-resize:screenSizeX/3*2 | push right bar-resize:screenSizeX/3
+bind pad4:ctrl;alt;cmd chain push left  bar-resize:screenSizeX/2 | push left bar-resize:screenSizeX/3*2 | push left bar-resize:screenSizeX/3
+bind pad8:ctrl;alt;cmd chain push up    bar-resize:screenSizeY/2 | push up    bar-resize:screenSizeY/3*2 | push up  bar-resize:screenSizeY/3
+bind pad2:ctrl;alt;cmd chain push down  bar-resize:screenSizeY/2 | push down  bar-resize:screenSizeY/3*2 | push down  bar-resize:screenSizeY/3
+
+bind pad7:ctrl;alt;cmd chain corner top-left     resize:screenSizeX/2;screenSizeY/2 | corner top-left     resize:screenSizeX/3*2;screenSizeY/3*2
+bind pad9:ctrl;alt;cmd chain corner top-right    resize:screenSizeX/2;screenSizeY/2 | corner top-right    resize:screenSizeX/3*2;screenSizeY/3*2
+bind pad1:ctrl;alt;cmd chain corner bottom-left  resize:screenSizeX/2;screenSizeY/2 | corner bottom-left  resize:screenSizeX/3*2;screenSizeY/3*2
+bind pad3:ctrl;alt;cmd chain corner bottom-right resize:screenSizeX/2;screenSizeY/2 | corner bottom-right resize:screenSizeX/3*2;screenSizeY/3*2
+
+# bind pad5:ctrl;alt;cmd chain push top center | move screenSizeX/4;screenSizeX/6 screenSizeX/2;screenSizeY/2
+bind pad5:ctrl;alt;cmd move screenOriginX+screenSizeX/2-windowSizeX/2;screenOriginY+screenSizeY/2-windowSizeY/2 windowSizeX;windowSizeY
+# bind pad+:ctrl;alt;cmd move 0;0 screenSizeX;screenSizeY
+bind pad+:ctrl;alt;cmd corner top-left resize:screenSizeX;screenSizeY
+
+# Nudge Bindings
+# bind right:shift;alt nudge +10% +0
+# bind left:shift;alt  nudge -10% +0
+# bind up:shift;alt    nudge +0   -10%
+# bind down:shift;alt  nudge +0   +10%
+
+# Throw Bindings
+bind right:ctrl;alt;cmd throw right
+bind left:ctrl;alt;cmd  throw left
+
+# Focus Bindings
+# bind right:cmd    focus right
+# bind left:cmd     focus left
+# bind up:cmd       focus up
+# bind down:cmd     focus down
+# bind up:cmd;alt   focus behind
+# bind down:cmd;alt focus behind
+
+# Window Hints
+bind esc:cmd hint

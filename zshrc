@@ -21,6 +21,3 @@ source ~/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plug
 autoload zmv
 
 . `brew --prefix`/etc/profile.d/z.sh
-function precmd () {
-  z --add "$(pwd -P)"
-}
