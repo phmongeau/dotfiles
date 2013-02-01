@@ -7,7 +7,8 @@ function n()
 	if [[ $* == *.* ]] ; then
 		$EDITOR ~/Dropbox/Notes/"$(echo $* | sed -e 's/_/ /g')"
 	else
-		$EDITOR ~/Dropbox/Notes/"$*".md
+		# $EDITOR ~/Dropbox/Notes/"$*".md
+		find ~/Dropbox/Notes/ -iname "*$**" -print0 | xargs -0 vim -c "CommandTBuffer"
 	fi
 }
 
