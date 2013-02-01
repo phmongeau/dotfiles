@@ -71,11 +71,16 @@ var fullScreen = slate.operation("corner", {
 
 var throwProportional = function(direction, win) {
 	var screen = win.screen();
-	var cRect = screen.rect();
-	var i = screen.id() == 0 ? "1" : "0";
-	var nRect = slate.screenForRef(i).rect();
+	var cRect = screen.visibleRect();
+
+	var i = screen.id() + direction;
+	if(i >= slate.screenCount()) i = 0;
+	else if(i < 0) i = slate.screenCount() - 1;
+
+	var nScreen = slate.screenForRef("" + i);
+	var nRect = nScreen.rect();
 	slate.operation("throw", {
-		"screen": direction,
+		"screen": nScreen,
 		"x": Math.round(nRect.x + ((win.rect().x - cRect.x)/ cRect.width)*nRect.width).toString(),
 		"y": Math.round(nRect.y + ((win.rect().y - cRect.y)/ cRect.height)*nRect.height).toString(),
 		"width":  Math.round((win.rect().width / cRect.width)*nRect.width).toString(),
@@ -98,16 +103,15 @@ slate.bind("pad5:"+hyper, center);
 slate.bind("pad+:"+hyper, fullScreen);
 
 //Throw Bindings
-slate.bind("left:"+hyper, function(w) { throwProportional("left", w); });
-slate.bind("right:"+hyper, function(w) { throwProportional("right", w); });
+slate.bind("left:"+hyper, function(w) { throwProportional(-1, w); });
+slate.bind("right:"+hyper, function(w) { throwProportional(1, w); });
 
 //App Bindings
-slate.bind("c"+hyper, focus("Adium"));
-slate.bind("f"+hyper, focus("Firefox"));
+slate.bind("c:"+hyper, focus("Adium"));
+slate.bind("f:"+hyper, focus("Firefox"));
 
 
 // Other Bindings
 slate.bind("esc:cmd", slate.operation("hint", {"characters": "fjdksla;gh" }));
 slate.bind("g:"+hyper, slate.operation("grid"));
 slate.bind("r:"+hyper, slate.operation("relaunch"));
-
